@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import cz.cube.nkd.filemanager.NkDFileManagerActivity;
 import cz.cube.nkd.filemanager.R;
 import cz.cube.nkd.filemanager.component.ItemImageView;
 import cz.cube.nkd.filemanager.component.ItemListView;
@@ -49,7 +50,7 @@ public class ItemUp implements Item {
         this.fileParent = file.getParentFile();
         this.itemListView = itemListView;
     }
-    
+
     @Override
     public List<Item> getChildren() {
         if (fileParent.canRead() && fileParent.isDirectory()) {
@@ -92,6 +93,7 @@ public class ItemUp implements Item {
         if (fileParent.canRead() && fileParent.isDirectory()) {
             ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
             itemListView.getAdapterEx().setItem(new ItemFile(fileParent));
+            itemListView.setSelectionFromTop(NkDFileManagerActivity.getInstance().getFolderPosition(fileParent), 0);
         }
     }
 

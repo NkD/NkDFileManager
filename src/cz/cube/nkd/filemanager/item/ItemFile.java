@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Vibrator;
@@ -52,12 +53,10 @@ public class ItemFile implements Item {
         }
     };
 
-    
-    
     public ItemFile(File file) {
         this.file = file;
     }
-    
+
     @Override
     public String getName() {
         return file.getName();
@@ -96,6 +95,11 @@ public class ItemFile implements Item {
             itemView.setTag(rowHolder);
         }
         rowHolder.itemName.setText(file.getName());
+        if (NkDFileManagerActivity.getInstance().isFolderVisited(file)) {
+            rowHolder.itemName.setTextColor(Color.YELLOW);
+        } else {
+            rowHolder.itemName.setTextColor(Color.WHITE);
+        }
         rowHolder.itemDataLeft.setText(Util.bytesToDynamicSize(file.length()));
         rowHolder.itemDataRight.setText(Util.convertDate(file.lastModified()));
         rowHolder.itemIcon.setItem(this);
@@ -139,8 +143,12 @@ public class ItemFile implements Item {
     @Override
     public void onClick(ItemListView itemListView) {
         if (file.canRead() && file.isDirectory()) {
+            NkDFileManagerActivity.getInstance().setFolderPosition(file.getParentFile(), itemListView.getFirstVisiblePosition());
+            //NkDFileManagerActivity.getInstance().setFolderPosition(file, 0);
             ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
             itemListView.getAdapterEx().setItem(this);
+            itemListView.setSelectionFromTop(0, 0);
+            NkDFileManagerActivity.getInstance().markFolderVisited(file);
         } else {
             Uri uri = Uri.fromFile(file);
             //Util.logI("Uri = " + uri.toString());
@@ -161,7 +169,7 @@ public class ItemFile implements Item {
 
     @Override
     public boolean onLongClick(ItemListView itemListView) {
-       // Util.logI("Long clicked on " + file.getPath());
+        // Util.logI("Long clicked on " + file.getPath());
         return false;
     }
 
