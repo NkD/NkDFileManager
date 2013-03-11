@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NkD file manager</string>
+    <color name="Grey">#777777</color>
+    <color name="ITEM_BACKGROUND_EVEN">#FF0000</color>
+    <color name="ITEM_BACGROUND_ODD">#000000</color>
+    <color name="TRANSPARENT">#00000099</color>
+    <dimen name="ITEM_ICON_WIDTH">100dp</dimen>
+    <dimen name="ITEM_ICON_HEIGHT">70dp</dimen>
+</resources>

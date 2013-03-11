@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/itemUp"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+    <ImageView android:src="@drawable/go_up" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:focusable="false" android:layout_height="40dip" android:layout_width="60dip" android:layout_margin="2dip" android:clickable="true" android:id="@+id/itemUpUp"></ImageView>
+    <ImageView android:src="@drawable/folder_home" android:focusable="false" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginRight="10dp" android:clickable="true" android:id="@+id/itemUpHome" android:layout_height="40dip" android:layout_width="40dip"></ImageView>
+    <TextView android:layout_height="wrap_content" android:id="@+id/textView1" android:textSize="25dip" android:text="..." android:layout_width="wrap_content" android:layout_alignParentTop="true" android:clickable="false" android:focusable="false" android:layout_alignBottom="@+id/itemUpRefresh" android:layout_toLeftOf="@+id/itemUpRefresh" android:layout_toRightOf="@+id/itemUpUp"></TextView>
+    <ImageView android:clickable="true" android:src="@drawable/refresh" android:id="@+id/itemUpRefresh" android:focusable="false" android:layout_alignParentTop="true" android:layout_toLeftOf="@+id/itemUpHome" android:layout_marginRight="10dp" android:layout_height="40dip" android:layout_width="40dip"></ImageView>
+    
+</RelativeLayout>
