@@ -8,6 +8,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import cz.cube.nkd.filemanager.component.ItemListView;
@@ -55,7 +59,7 @@ public class NkDFileManagerActivity extends Activity {
         ItemListView[] itemListViews = new ItemListView[] { list1, list2, list3, list4 };
         cubePager.setItemListViews(itemListViews, 0);
         setContentView(cubePager);
-        
+
         prefFolderVisited = getSharedPreferences("folder_visited", Context.MODE_PRIVATE);
         //prefFolderVisited.edit().clear().commit();
         prefFolderPosition = getSharedPreferences("folder_position", Context.MODE_PRIVATE);
@@ -80,26 +84,56 @@ public class NkDFileManagerActivity extends Activity {
         }
     }
 
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return super.onKeyLongPress(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuItem mi = menu.add("Unmark visited folders");
+        mi.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                prefFolderVisited.edit().clear().commit();
+                
+                ItemListView itemListView;
+                if (horizontalPager != null) {
+                    itemListView = horizontalPager.getCurrentScreen() == 0 ? list1 : list2;
+                } else {
+                    itemListView = cubePager.getCurrent();
+                }
+                ItemListViewAdapter adapter = itemListView.getAdapterEx();
+                adapter.setItem(adapter.getItem());
+                return true;
+            }
+        });
+        return true;
+    }
+
     public static NkDFileManagerActivity getInstance() {
         return wrActivity.get();
     }
-    
-    public void markFolderVisited(File file){
+
+    public void markFolderVisited(File file) {
         prefFolderVisited.edit().putBoolean(file.getAbsolutePath(), true).commit();
     }
-    
-    public boolean isFolderVisited(File file){
+
+    public boolean isFolderVisited(File file) {
         return prefFolderVisited.getBoolean(file.getAbsolutePath(), false);
     }
-    
-    public void setFolderPosition(File file, int position){
+
+    public void setFolderPosition(File file, int position) {
         prefFolderPosition.edit().putInt(file.getAbsolutePath(), position).commit();
     }
-    
-    public int getFolderPosition(File file){
+
+    public int getFolderPosition(File file) {
         return prefFolderPosition.getInt(file.getAbsolutePath(), 0);
     }
-    
-    
 
 }
