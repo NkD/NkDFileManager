@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -144,8 +142,6 @@ public class ItemFile implements Item {
     public void onClick(ItemListView itemListView) {
         if (file.canRead() && file.isDirectory()) {
             NkDFileManagerActivity.getInstance().setFolderPosition(file.getParentFile(), itemListView.getFirstVisiblePosition());
-            //NkDFileManagerActivity.getInstance().setFolderPosition(file, 0);
-            ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
             itemListView.getAdapterEx().setItem(this);
             itemListView.setSelectionFromTop(0, 0);
             NkDFileManagerActivity.getInstance().markFolderVisited(file);

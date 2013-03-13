@@ -4,9 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +29,6 @@ public class ItemUp implements Item {
     private OnClickListener clickHome = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
             itemListView.getAdapterEx().setItem(new ItemFile(new File("/")));
         }
     };
@@ -39,7 +36,6 @@ public class ItemUp implements Item {
     private OnClickListener clickRefresh = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
             itemListView.getAdapterEx().setItem(new ItemFile(file));
         }
     };
@@ -91,7 +87,6 @@ public class ItemUp implements Item {
     @Override
     public void onClick(ItemListView itemListView) {
         if (fileParent.canRead() && fileParent.isDirectory()) {
-            ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
             itemListView.getAdapterEx().setItem(new ItemFile(fileParent));
             itemListView.setSelectionFromTop(NkDFileManagerActivity.getInstance().getFolderPosition(fileParent), 0);
         }
