@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,7 @@ public class ItemListViewAdapter extends BaseAdapter {
             }
         }
         Collections.sort(children, ItemFile.comparator);
-        ((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
+        //((Vibrator) itemListView.getContext().getSystemService(Context.VIBRATOR_SERVICE)).vibrate(30);
         notifyDataSetChanged();
     }
 
